@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ProductPage(),
+    );
+  }
+}
+
+/* -------- PRODUCT PAGE -------- */
+
+class ProductPage extends StatefulWidget {
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+
+  List<String> cart = []; // cart list
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Products")),
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          ElevatedButton(
+            child: Text("Add Shoes"),
+            onPressed: () {
+              cart.add("Shoes");
+            },
+          ),
+
+          ElevatedButton(
+            child: Text("Add Bag"),
+            onPressed: () {
+              cart.add("Bag");
+            },
+          ),
+
+          ElevatedButton(
+            child: Text("Add Watch"),
+            onPressed: () {
+              cart.add("Watch");
+            },
+          ),
+
+          SizedBox(height: 20),
+
+          ElevatedButton(
+            child: Text("Go to Cart"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(cart: cart),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/* -------- CART PAGE -------- */
+
+class CartPage extends StatelessWidget {
+
+  final List<String> cart;
+
+  CartPage({required this.cart});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Cart")),
+
+      body: ListView.builder(
+        itemCount: cart.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(cart[index]),
+          );
+        },
+      ),
+    );
+  }
+}
